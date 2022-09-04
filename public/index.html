@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
+</head>
+<body>
+    
+    <h1>My API Widget</h1>
+
+    <div x-data="{
+        sentence : '',
+        longestWord : '',
+        shortestWord : '',
+        wordLength : '0',
+        checkSentence() {
+            axios
+            .get(`/api/word_game?sentence=${this.sentence}`)
+            .then((result) =>{
+                
+                this.longestWord = result.data.longestWord;
+                this.shortestWord = result.data.shortestWord;
+                this.wordLength = result.data.sum;
+
+            });
+
+        }
+ 
+ 
+    }">
+
+        <div>
+            <textarea x-model="sentence" name="" id="" cols="30" rows="5"></textarea>
+            <div>
+                <button x-on:click="checkSentence">Check sentence</button>
+            </div>
+        </div>
+    
+        <div>
+            <div>
+                Longest Word: <span x-text="longestWord"></span>
+            </div>
+            <div>
+                Shortest Word: <span x-text="shortestWord"></span>
+            </div>
+            <div>
+                Word Length: <span x-text="wordLength"></span>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
